@@ -4,12 +4,17 @@ var mongoose = require('mongoose');
 var index = require('./routes/index');
 var assignment = require('./routes/assignment');
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
-app.use(express.static('server/public'));
+
 
 app.use('/', index);
 app.use('/assignment', assignment);
-app.use('/task', assignment)
+
+app.get('/assignments', function(request, response){
+  response.send(assignments);
+});
+
 
 var mongoURI = "mongodb://localhost:27017/assignments";
 var MongoDB = mongoose.connect(mongoURI).connection;
